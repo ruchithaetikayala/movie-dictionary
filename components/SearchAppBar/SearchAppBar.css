@@ -1,0 +1,55 @@
+/* - Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+Card - #151515
+SandyBrown - #F8A244
+Dark - #F07A03
+Darker - #D45102
+
+
+
+
+
+*/
+
+.nav-container {
+  color: white;
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+}
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2.4rem;
+  border-radius: 1.2rem;
+  background-color: rgba(88, 88, 88, 0.554);
+}
+.btn {
+  padding: 1rem 2.4rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #f07a03;
+  color: #151515;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.logo-link:link,
+.logo-link:visited {
+  text-decoration: none;
+  color: #f07a03;
+  text-transform: uppercase;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
