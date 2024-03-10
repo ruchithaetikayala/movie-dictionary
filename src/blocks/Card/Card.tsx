@@ -2,15 +2,30 @@ import "./Card.css";
 import createWishlist from "../../services/createWishlist";
 import { Link } from "react-router-dom";
 import { MovieProp } from "../../App.types";
+import { SetStateAction, useState } from "react";
+import Loader from "../Loader/Loader";
 
 interface CardProp {
   movie: MovieProp;
 }
 
+const handleClick=(movie: MovieProp,setShowLoader: { (value: SetStateAction<boolean>): void; (arg0: boolean): void; },setButtonText: { (value: SetStateAction<string>): void; (arg0: string): void; },setButtonDisabled: { (value: SetStateAction<boolean>): void; (arg0: boolean): void; })=>{
+  setShowLoader(true)
+  createWishlist(movie)
+  setButtonText('Remove Wishlist')
+  setButtonDisabled(true)
+  setTimeout(() => setShowLoader(false), 2000)
+}
+
 const Card = ({ movie }: CardProp) => {
+  const [showLoader, setShowLoader] = useState(false);
+  const [buttonText, setButtonText] = useState("Wishlist+");
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
   return (
     <Link to={`title/${movie.imdbID}`} className="">
-      <div className="card-container">
+      <div className={`card-${showLoader ? "loader" : "container"}`}>
+        <div className="loader">{showLoader && <Loader />}</div>
         <div className="img-container">
           <img
             src={movie.Poster}
@@ -24,10 +39,21 @@ const Card = ({ movie }: CardProp) => {
         </div>
         <div>
           <button
-            className="btn-wishlist"
-            onClick={() => createWishlist(movie)}
+            className={isButtonDisabled ? "btn-disable" : "btn-wishlist"}
+            onClick={(e) =>{
+              e.preventDefault()
+              handleClick(
+                movie,
+                setShowLoader,
+                setButtonText,
+                setButtonDisabled
+              )
+            }
+              
+            }
+            disabled={isButtonDisabled}
           >
-            WatchList+
+            {buttonText}
           </button>
         </div>
       </div>
@@ -36,6 +62,3 @@ const Card = ({ movie }: CardProp) => {
 };
 
 export default Card;
-// {Title: 'Batman Begins', Year: '2005', imdbID: 'tt0372784', Type: 'movie', Poster: '
-// https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2…zQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'
-// }
